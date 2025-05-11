@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="961df7501aff47b2a2c04b892c779799" Name="Diagram1">
+        <EntityTypeShape EntityType="ProyectoFinal2024Model.Articulo" Width="1.5" PointX="6.375" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProyectoFinal2024Model.Categoria" Width="1.5" PointX="4.25" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProyectoFinal2024Model.Cliente" Width="1.5" PointX="1.5" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProyectoFinal2024Model.DetalleVenta" Width="1.5" PointX="6.375" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProyectoFinal2024Model.Empleado" Width="1.5" PointX="1.5" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProyectoFinal2024Model.Estado" Width="1.5" PointX="8.25" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProyectoFinal2024Model.HistoricoEstado" Width="1.5" PointX="6.125" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProyectoFinal2024Model.Venta" Width="1.5" PointX="3.75" PointY="0.625" IsExpanded="true" />
+        <AssociationConnector Association="ProyectoFinal2024Model.FK__Articulo__ArtCat__47DBAE45" ManuallyRouted="false" />
+        <AssociationConnector Association="ProyectoFinal2024Model.FK__DetalleVe__DetVe__5441852A" ManuallyRouted="false" />
+        <AssociationConnector Association="ProyectoFinal2024Model.FK__Venta__VenCliCI__4F7CD00D" ManuallyRouted="false" />
+        <AssociationConnector Association="ProyectoFinal2024Model.FK__DetalleVe__DetVe__534D60F1" ManuallyRouted="false" ></AssociationConnector>
+        <AssociationConnector Association="ProyectoFinal2024Model.FK__Venta__VenEmpUsu__5070F446" ManuallyRouted="false" />
+        <AssociationConnector Association="ProyectoFinal2024Model.FK__Historico__VenEs__59063A47" ManuallyRouted="false" />
+        <AssociationConnector Association="ProyectoFinal2024Model.FK__Historico__VenNu__5812160E" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

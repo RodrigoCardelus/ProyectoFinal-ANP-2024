@@ -1,0 +1,91 @@
+﻿@model IEnumerable<EC.Articulo>
+
+@{
+    Layout = "~/Views/Shared/_LayoutMenu.cshtml";
+}
+
+<h2>Listado de Articulos</h2>
+
+@ViewBag.Mensaje
+
+<p>
+    @Html.ActionLink("Crear", "FormAgregarArticulo")
+</p>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div>
+            <div>
+                @Html.TextBox("nombre") 
+                <input type="submit" value="Filtrar" class="btn btn-default" />
+            </div>
+
+        </div>
+
+    }
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ArtCod)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ArtNom)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ArtPre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ArtTam)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ArtTipo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ArtFechVen)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ArtCatCod.CatNom)
+        </th>
+        <th>
+            Acciones
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (EC.Articulo Articulo in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => Articulo.ArtCod)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Articulo.ArtNom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Articulo.ArtPre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Articulo.ArtTam)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Articulo.ArtTipo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Articulo.ArtFechVen)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Articulo.ArtCatCod.CatNom)
+            </td>
+            <td>
+                @Html.ActionLink("Modificar", "FormModificarArticulo", new { Articulo.ArtCod }) |
+                @Html.ActionLink("Consultar", "FormConsultarArticulo", new { Articulo.ArtCod }) |
+                @Html.ActionLink("Borrar", "FormEliminarArticulo", new { Articulo.ArtCod })
+            </td>
+        </tr>
+    }
+
+</table>
+

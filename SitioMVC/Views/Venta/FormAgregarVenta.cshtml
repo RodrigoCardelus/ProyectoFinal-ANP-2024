@@ -1,0 +1,45 @@
+﻿@model EC.Venta
+
+@{
+    Layout = "~/Views/Shared/_LayoutMenu.cshtml";
+}
+
+<h2>Agregar Venta</h2>
+
+@ViewBag.Mensaje
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Venta</h4>
+        <hr />
+        <div class="form-group">
+
+            @Html.Label("Seleccione un Cliente", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("SeleccionCliente", (SelectList)ViewBag.ListaCliente, "Seleccionar", new { htmlAttributes = new { @class = "form-control" } })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.VenDir, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.VenDir, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.VenDir, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Agregar Articulos" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+
+   
+}
+
+

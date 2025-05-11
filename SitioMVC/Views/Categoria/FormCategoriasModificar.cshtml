@@ -1,0 +1,35 @@
+﻿@model EC.Categoria
+
+@{
+    Layout = "~/Views/Shared/_LayoutMenu.cshtml";
+}
+
+<h2>Modificar Categoria</h2>
+
+@ViewBag.Mensaje
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.CatCod)
+        @Html.DisplayFor(model => model.CatCod)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.CatNom)
+        @Html.EditorFor(model => model.CatNom)
+    </div>
+
+    <div class="form-actions">
+        <input type="submit" value="Modificar" class="btn btn-default" />
+    </div>
+    <div class="form-actions no-color">
+        @Html.ActionLink("Volver al Listado", "FormCategoriaListar", "Categoria")
+
+
+    </div>
+}
+
+

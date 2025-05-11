@@ -1,0 +1,45 @@
+﻿@model IEnumerable<EC.Articulo>
+
+@{
+    Layout = "~/Views/Shared/_LayoutMenu.cshtml";
+}
+
+<h2>Listado Interactivo de Articulos</h2>
+
+@ViewBag.Mensaje
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <table>
+        <tr>
+            <td>Nombre: @Html.TextBox("nombre", "")</td>
+            <td>Categorias del Articulo: @Html.DropDownList("ArticuloCat", (SelectList)ViewBag.ListaAC)</td>
+            <td><input type="submit" value="Filtrar" class="btn btn-default" /></td>
+            <td>@Html.ActionLink("Limpiar Filtros", "ListadoInteractivoArticulos", null, new { @class = "btn btn-default" })</td>
+        </tr>
+    </table>
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ArtNom)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (EC.Articulo item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ArtNom)
+            </td>
+            <td>
+                @Html.ActionLink("Datos Completos", "DatosCompletos", new { item.ArtCod }) |
+                @Html.ActionLink("Venta de Articulos", "VentasArt", "Venta", new { item.ArtCod }, null)
+            </td>
+        </tr>
+    }
+
+</table>

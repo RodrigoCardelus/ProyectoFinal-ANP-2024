@@ -1,0 +1,539 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ProyectoFinal2024Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Articulo">
+          <Key>
+            <PropertyRef Name="ArtCod" />
+          </Key>
+          <Property Name="ArtCod" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="ArtNom" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ArtTipo" Type="varchar" MaxLength="7" Nullable="false" />
+          <Property Name="ArtTam" Type="int" Nullable="false" />
+          <Property Name="ArtFechVen" Type="datetime" Nullable="false" />
+          <Property Name="ArtPre" Type="decimal" Precision="20" Scale="2" />
+          <Property Name="ArtCatCod" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="ArtActivo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Categoria">
+          <Key>
+            <PropertyRef Name="CatCod" />
+          </Key>
+          <Property Name="CatCod" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="CatNom" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="CatActivo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="CliCI" />
+          </Key>
+          <Property Name="CliCI" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="CliNom" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CliNumTar" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="CliTel" Type="varchar" MaxLength="9" />
+        </EntityType>
+        <EntityType Name="DetalleVenta">
+          <Key>
+            <PropertyRef Name="DetVenNum" />
+            <PropertyRef Name="DetVenArtCod" />
+          </Key>
+          <Property Name="DetVenNum" Type="int" Nullable="false" />
+          <Property Name="DetVenArtCod" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="DetVenCant" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Empleado">
+          <Key>
+            <PropertyRef Name="EmpUsu" />
+          </Key>
+          <Property Name="EmpUsu" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="EmpNom" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EmpPass" Type="varchar" MaxLength="25" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Estado">
+          <Key>
+            <PropertyRef Name="EstCod" />
+          </Key>
+          <Property Name="EstCod" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EstNom" Type="varchar" MaxLength="9" />
+        </EntityType>
+        <EntityType Name="HistoricoEstado">
+          <Key>
+            <PropertyRef Name="VenNum" />
+            <PropertyRef Name="VenEst" />
+          </Key>
+          <Property Name="VenNum" Type="int" Nullable="false" />
+          <Property Name="VenEst" Type="int" Nullable="false" />
+          <Property Name="Fecha" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Venta">
+          <Key>
+            <PropertyRef Name="VenNum" />
+          </Key>
+          <Property Name="VenNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VenFec" Type="datetime" Nullable="false" />
+          <Property Name="VenMon" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="VenDir" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="VenCliCI" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="VenEmpUsu" Type="varchar" MaxLength="25" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Articulo__ArtCat__47DBAE45">
+          <End Role="Categoria" Type="Self.Categoria" Multiplicity="1" />
+          <End Role="Articulo" Type="Self.Articulo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="CatCod" />
+            </Principal>
+            <Dependent Role="Articulo">
+              <PropertyRef Name="ArtCatCod" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DetalleVe__DetVe__534D60F1">
+          <End Role="Venta" Type="Self.Venta" Multiplicity="1" />
+          <End Role="DetalleVenta" Type="Self.DetalleVenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Venta">
+              <PropertyRef Name="VenNum" />
+            </Principal>
+            <Dependent Role="DetalleVenta">
+              <PropertyRef Name="DetVenNum" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DetalleVe__DetVe__5441852A">
+          <End Role="Articulo" Type="Self.Articulo" Multiplicity="1" />
+          <End Role="DetalleVenta" Type="Self.DetalleVenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Articulo">
+              <PropertyRef Name="ArtCod" />
+            </Principal>
+            <Dependent Role="DetalleVenta">
+              <PropertyRef Name="DetVenArtCod" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Historico__VenEs__59063A47">
+          <End Role="Estado" Type="Self.Estado" Multiplicity="1" />
+          <End Role="HistoricoEstado" Type="Self.HistoricoEstado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estado">
+              <PropertyRef Name="EstCod" />
+            </Principal>
+            <Dependent Role="HistoricoEstado">
+              <PropertyRef Name="VenEst" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Historico__VenNu__5812160E">
+          <End Role="Venta" Type="Self.Venta" Multiplicity="1" />
+          <End Role="HistoricoEstado" Type="Self.HistoricoEstado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Venta">
+              <PropertyRef Name="VenNum" />
+            </Principal>
+            <Dependent Role="HistoricoEstado">
+              <PropertyRef Name="VenNum" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Venta__VenCliCI__4F7CD00D">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="CliCI" />
+            </Principal>
+            <Dependent Role="Venta">
+              <PropertyRef Name="VenCliCI" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Venta__VenEmpUsu__5070F446">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
+          <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="EmpUsu" />
+            </Principal>
+            <Dependent Role="Venta">
+              <PropertyRef Name="VenEmpUsu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ProyectoFinal2024ModelStoreContainer">
+          <EntitySet Name="Articulo" EntityType="Self.Articulo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Categoria" EntityType="Self.Categoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DetalleVenta" EntityType="Self.DetalleVenta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Empleado" EntityType="Self.Empleado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Estado" EntityType="Self.Estado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HistoricoEstado" EntityType="Self.HistoricoEstado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Venta" EntityType="Self.Venta" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Articulo__ArtCat__47DBAE45" Association="Self.FK__Articulo__ArtCat__47DBAE45">
+            <End Role="Categoria" EntitySet="Categoria" />
+            <End Role="Articulo" EntitySet="Articulo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DetalleVe__DetVe__534D60F1" Association="Self.FK__DetalleVe__DetVe__534D60F1">
+            <End Role="Venta" EntitySet="Venta" />
+            <End Role="DetalleVenta" EntitySet="DetalleVenta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DetalleVe__DetVe__5441852A" Association="Self.FK__DetalleVe__DetVe__5441852A">
+            <End Role="Articulo" EntitySet="Articulo" />
+            <End Role="DetalleVenta" EntitySet="DetalleVenta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Historico__VenEs__59063A47" Association="Self.FK__Historico__VenEs__59063A47">
+            <End Role="Estado" EntitySet="Estado" />
+            <End Role="HistoricoEstado" EntitySet="HistoricoEstado" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Historico__VenNu__5812160E" Association="Self.FK__Historico__VenNu__5812160E">
+            <End Role="Venta" EntitySet="Venta" />
+            <End Role="HistoricoEstado" EntitySet="HistoricoEstado" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Venta__VenCliCI__4F7CD00D" Association="Self.FK__Venta__VenCliCI__4F7CD00D">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Venta" EntitySet="Venta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Venta__VenEmpUsu__5070F446" Association="Self.FK__Venta__VenEmpUsu__5070F446">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="Venta" EntitySet="Venta" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ProyectoFinal2024Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Articulo">
+          <Key>
+            <PropertyRef Name="ArtCod" />
+          </Key>
+          <Property Name="ArtCod" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ArtNom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ArtTipo" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ArtTam" Type="Int32" Nullable="false" />
+          <Property Name="ArtFechVen" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ArtPre" Type="Decimal" Precision="20" Scale="2" />
+          <Property Name="ArtCatCod" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ArtActivo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Categoria" Relationship="Self.FK__Articulo__ArtCat__47DBAE45" FromRole="Articulo" ToRole="Categoria" />
+        </EntityType>
+        <EntityType Name="Categoria">
+          <Key>
+            <PropertyRef Name="CatCod" />
+          </Key>
+          <Property Name="CatCod" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CatNom" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CatActivo" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="CliCI" />
+          </Key>
+          <Property Name="CliCI" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CliNom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CliNumTar" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CliTel" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="DetalleVenta">
+          <Key>
+            <PropertyRef Name="DetVenNum" />
+            <PropertyRef Name="DetVenArtCod" />
+          </Key>
+          <Property Name="DetVenNum" Type="Int32" Nullable="false" />
+          <Property Name="DetVenArtCod" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DetVenCant" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Articulo" Relationship="Self.FK__DetalleVe__DetVe__5441852A" FromRole="DetalleVenta" ToRole="Articulo" />
+          <NavigationProperty Name="Venta" Relationship="Self.FK__DetalleVe__DetVe__534D60F1" FromRole="DetalleVenta" ToRole="Venta" />
+        </EntityType>
+        <EntityType Name="Empleado">
+          <Key>
+            <PropertyRef Name="EmpUsu" />
+          </Key>
+          <Property Name="EmpUsu" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EmpNom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EmpPass" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Estado">
+          <Key>
+            <PropertyRef Name="EstCod" />
+          </Key>
+          <Property Name="EstCod" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EstNom" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="HistoricoEstado">
+          <Key>
+            <PropertyRef Name="VenNum" />
+            <PropertyRef Name="VenEst" />
+          </Key>
+          <Property Name="VenNum" Type="Int32" Nullable="false" />
+          <Property Name="VenEst" Type="Int32" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Estado" Relationship="Self.FK__Historico__VenEs__59063A47" FromRole="HistoricoEstado" ToRole="Estado" />
+          <NavigationProperty Name="Venta" Relationship="Self.FK__Historico__VenNu__5812160E" FromRole="HistoricoEstado" ToRole="Venta" />
+        </EntityType>
+        <EntityType Name="Venta">
+          <Key>
+            <PropertyRef Name="VenNum" />
+          </Key>
+          <Property Name="VenNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VenFec" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="VenMon" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="VenDir" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="VenCliCI" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="VenEmpUsu" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK__Venta__VenCliCI__4F7CD00D" FromRole="Venta" ToRole="Cliente" />
+          <NavigationProperty Name="Empleado" Relationship="Self.FK__Venta__VenEmpUsu__5070F446" FromRole="Venta" ToRole="Empleado" />
+        </EntityType>
+        <Association Name="FK__Articulo__ArtCat__47DBAE45">
+          <End Role="Categoria" Type="Self.Categoria" Multiplicity="1" />
+          <End Role="Articulo" Type="Self.Articulo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="CatCod" />
+            </Principal>
+            <Dependent Role="Articulo">
+              <PropertyRef Name="ArtCatCod" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DetalleVe__DetVe__5441852A">
+          <End Role="Articulo" Type="Self.Articulo" Multiplicity="1" />
+          <End Role="DetalleVenta" Type="Self.DetalleVenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Articulo">
+              <PropertyRef Name="ArtCod" />
+            </Principal>
+            <Dependent Role="DetalleVenta">
+              <PropertyRef Name="DetVenArtCod" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Venta__VenCliCI__4F7CD00D">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="CliCI" />
+            </Principal>
+            <Dependent Role="Venta">
+              <PropertyRef Name="VenCliCI" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DetalleVe__DetVe__534D60F1">
+          <End Role="Venta" Type="Self.Venta" Multiplicity="1" />
+          <End Role="DetalleVenta" Type="Self.DetalleVenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Venta">
+              <PropertyRef Name="VenNum" />
+            </Principal>
+            <Dependent Role="DetalleVenta">
+              <PropertyRef Name="DetVenNum" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Venta__VenEmpUsu__5070F446">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
+          <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="EmpUsu" />
+            </Principal>
+            <Dependent Role="Venta">
+              <PropertyRef Name="VenEmpUsu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Historico__VenEs__59063A47">
+          <End Role="Estado" Type="Self.Estado" Multiplicity="1" />
+          <End Role="HistoricoEstado" Type="Self.HistoricoEstado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estado">
+              <PropertyRef Name="EstCod" />
+            </Principal>
+            <Dependent Role="HistoricoEstado">
+              <PropertyRef Name="VenEst" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Historico__VenNu__5812160E">
+          <End Role="Venta" Type="Self.Venta" Multiplicity="1" />
+          <End Role="HistoricoEstado" Type="Self.HistoricoEstado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Venta">
+              <PropertyRef Name="VenNum" />
+            </Principal>
+            <Dependent Role="HistoricoEstado">
+              <PropertyRef Name="VenNum" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ProyectoFinal2024Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Articulo" EntityType="Self.Articulo" />
+          <EntitySet Name="Categoria" EntityType="Self.Categoria" />
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" />
+          <EntitySet Name="DetalleVenta" EntityType="Self.DetalleVenta" />
+          <EntitySet Name="Empleado" EntityType="Self.Empleado" />
+          <EntitySet Name="Estado" EntityType="Self.Estado" />
+          <EntitySet Name="HistoricoEstado" EntityType="Self.HistoricoEstado" />
+          <EntitySet Name="Venta" EntityType="Self.Venta" />
+          <AssociationSet Name="FK__Articulo__ArtCat__47DBAE45" Association="Self.FK__Articulo__ArtCat__47DBAE45">
+            <End Role="Categoria" EntitySet="Categoria" />
+            <End Role="Articulo" EntitySet="Articulo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DetalleVe__DetVe__5441852A" Association="Self.FK__DetalleVe__DetVe__5441852A">
+            <End Role="Articulo" EntitySet="Articulo" />
+            <End Role="DetalleVenta" EntitySet="DetalleVenta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Venta__VenCliCI__4F7CD00D" Association="Self.FK__Venta__VenCliCI__4F7CD00D">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Venta" EntitySet="Venta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DetalleVe__DetVe__534D60F1" Association="Self.FK__DetalleVe__DetVe__534D60F1">
+            <End Role="Venta" EntitySet="Venta" />
+            <End Role="DetalleVenta" EntitySet="DetalleVenta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Venta__VenEmpUsu__5070F446" Association="Self.FK__Venta__VenEmpUsu__5070F446">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="Venta" EntitySet="Venta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Historico__VenEs__59063A47" Association="Self.FK__Historico__VenEs__59063A47">
+            <End Role="Estado" EntitySet="Estado" />
+            <End Role="HistoricoEstado" EntitySet="HistoricoEstado" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Historico__VenNu__5812160E" Association="Self.FK__Historico__VenNu__5812160E">
+            <End Role="Venta" EntitySet="Venta" />
+            <End Role="HistoricoEstado" EntitySet="HistoricoEstado" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ProyectoFinal2024ModelStoreContainer" CdmEntityContainer="ProyectoFinal2024Entities">
+          <EntitySetMapping Name="Articulo">
+            <EntityTypeMapping TypeName="ProyectoFinal2024Model.Articulo">
+              <MappingFragment StoreEntitySet="Articulo">
+                <ScalarProperty Name="ArtCod" ColumnName="ArtCod" />
+                <ScalarProperty Name="ArtNom" ColumnName="ArtNom" />
+                <ScalarProperty Name="ArtTipo" ColumnName="ArtTipo" />
+                <ScalarProperty Name="ArtTam" ColumnName="ArtTam" />
+                <ScalarProperty Name="ArtFechVen" ColumnName="ArtFechVen" />
+                <ScalarProperty Name="ArtPre" ColumnName="ArtPre" />
+                <ScalarProperty Name="ArtCatCod" ColumnName="ArtCatCod" />
+                <ScalarProperty Name="ArtActivo" ColumnName="ArtActivo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categoria">
+            <EntityTypeMapping TypeName="ProyectoFinal2024Model.Categoria">
+              <MappingFragment StoreEntitySet="Categoria">
+                <ScalarProperty Name="CatCod" ColumnName="CatCod" />
+                <ScalarProperty Name="CatNom" ColumnName="CatNom" />
+                <ScalarProperty Name="CatActivo" ColumnName="CatActivo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cliente">
+            <EntityTypeMapping TypeName="ProyectoFinal2024Model.Cliente">
+              <MappingFragment StoreEntitySet="Cliente">
+                <ScalarProperty Name="CliCI" ColumnName="CliCI" />
+                <ScalarProperty Name="CliNom" ColumnName="CliNom" />
+                <ScalarProperty Name="CliNumTar" ColumnName="CliNumTar" />
+                <ScalarProperty Name="CliTel" ColumnName="CliTel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DetalleVenta">
+            <EntityTypeMapping TypeName="ProyectoFinal2024Model.DetalleVenta">
+              <MappingFragment StoreEntitySet="DetalleVenta">
+                <ScalarProperty Name="DetVenNum" ColumnName="DetVenNum" />
+                <ScalarProperty Name="DetVenArtCod" ColumnName="DetVenArtCod" />
+                <ScalarProperty Name="DetVenCant" ColumnName="DetVenCant" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Empleado">
+            <EntityTypeMapping TypeName="ProyectoFinal2024Model.Empleado">
+              <MappingFragment StoreEntitySet="Empleado">
+                <ScalarProperty Name="EmpUsu" ColumnName="EmpUsu" />
+                <ScalarProperty Name="EmpNom" ColumnName="EmpNom" />
+                <ScalarProperty Name="EmpPass" ColumnName="EmpPass" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Estado">
+            <EntityTypeMapping TypeName="ProyectoFinal2024Model.Estado">
+              <MappingFragment StoreEntitySet="Estado">
+                <ScalarProperty Name="EstCod" ColumnName="EstCod" />
+                <ScalarProperty Name="EstNom" ColumnName="EstNom" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HistoricoEstado">
+            <EntityTypeMapping TypeName="ProyectoFinal2024Model.HistoricoEstado">
+              <MappingFragment StoreEntitySet="HistoricoEstado">
+                <ScalarProperty Name="VenNum" ColumnName="VenNum" />
+                <ScalarProperty Name="VenEst" ColumnName="VenEst" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Venta">
+            <EntityTypeMapping TypeName="ProyectoFinal2024Model.Venta">
+              <MappingFragment StoreEntitySet="Venta">
+                <ScalarProperty Name="VenNum" ColumnName="VenNum" />
+                <ScalarProperty Name="VenFec" ColumnName="VenFec" />
+                <ScalarProperty Name="VenMon" ColumnName="VenMon" />
+                <ScalarProperty Name="VenDir" ColumnName="VenDir" />
+                <ScalarProperty Name="VenCliCI" ColumnName="VenCliCI" />
+                <ScalarProperty Name="VenEmpUsu" ColumnName="VenEmpUsu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram DiagramId="afb12a64096a46db8bec0dfbd3a47ed5" Name="Diagram1">
+        <EntityTypeShape EntityType="ProyectoFinal2024Model.Articulo" Width="1.5" PointX="9.375" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProyectoFinal2024Model.Categoria" Width="1.5" PointX="11.625" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProyectoFinal2024Model.Cliente" Width="1.5" PointX="3.125" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProyectoFinal2024Model.DetalleVenta" Width="1.5" PointX="7" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProyectoFinal2024Model.Empleado" Width="1.5" PointX="3.125" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProyectoFinal2024Model.Estado" Width="1.5" PointX="13.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProyectoFinal2024Model.HistoricoEstado" Width="1.5" PointX="10.625" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProyectoFinal2024Model.Venta" Width="1.5" PointX="7" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="ProyectoFinal2024Model.FK__Articulo__ArtCat__47DBAE45" ManuallyRouted="false" />
+        <AssociationConnector Association="ProyectoFinal2024Model.FK__DetalleVe__DetVe__5441852A" ManuallyRouted="false" />
+        <AssociationConnector Association="ProyectoFinal2024Model.FK__Venta__VenCliCI__4F7CD00D" ManuallyRouted="false" />
+        <AssociationConnector Association="ProyectoFinal2024Model.FK__DetalleVe__DetVe__534D60F1" ManuallyRouted="false" />
+        <AssociationConnector Association="ProyectoFinal2024Model.FK__Venta__VenEmpUsu__5070F446" ManuallyRouted="false" />
+        <AssociationConnector Association="ProyectoFinal2024Model.FK__Historico__VenEs__59063A47" ManuallyRouted="false" />
+        <AssociationConnector Association="ProyectoFinal2024Model.FK__Historico__VenNu__5812160E" ManuallyRouted="false" />
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

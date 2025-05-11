@@ -1,0 +1,39 @@
+﻿@using EC
+@model IEnumerable<Categoria>
+
+@{
+    Layout = "~/Views/Shared/_LayoutMenu.cshtml";
+}
+
+<h2>Listado de Categoria</h2>
+
+@ViewBag.Mensaje
+
+<p>
+    @Html.ActionLink("Crear", "FormCategoriaNuevo")
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().CatCod)</th> <!-- Aquí usamos el nombre de la propiedad directamente -->
+            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().CatNom)</th>
+            <th>Acciones</th> <!-- Columna para las acciones -->
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.CatCod)</td> <!-- Mostrar CatCod -->
+                <td>@Html.DisplayFor(modelItem => item.CatNom)</td> <!-- Mostrar CatNom -->
+                <td>
+                    @Html.ActionLink("Modificar", "FormCategoriasModificar", new { CatCod = item.CatCod }) |
+                    @Html.ActionLink("Consultar", "FormCategoriaConsultar", new { CatCod = item.CatCod }) |
+                    @Html.ActionLink("Eliminar", "FormCategoriaEliminar", new { CatCod = item.CatCod })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+

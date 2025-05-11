@@ -1,0 +1,70 @@
+﻿@model IEnumerable<EC.Cliente>
+
+@{
+    Layout = "~/Views/Shared/_LayoutMenu.cshtml";
+}
+
+<h2>Listado de Clientes</h2>
+
+@ViewBag.Mensaje
+
+<p>
+    @Html.ActionLink("Crear", "FormAltaCliente")
+</p>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <div>
+            @Html.TextBox("nombre")
+            <input type="submit" value="Filtrar" class="btn btn-default" />
+        </div>
+    </div>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CliCi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CliNom)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CliNumTar)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CliTel)
+        </th>
+        <th>
+            Acciones
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (EC.Cliente unC in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => unC.CliCi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => unC.CliNom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => unC.CliNumTar)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => unC.CliTel)
+            </td>
+            <td>
+                @Html.ActionLink("Modificar", "FormModificarCliente", new { unC.CliCi }) |
+                @Html.ActionLink("Buscar", "FormClienteBuscar", new { unC.CliCi }) 
+            </td>
+        </tr>
+    }
+
+</table>
+

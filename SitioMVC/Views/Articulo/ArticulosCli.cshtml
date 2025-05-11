@@ -1,0 +1,68 @@
+﻿@model IEnumerable<EC.Articulo>
+
+@{
+    Layout = "~/Views/Shared/_LayoutMenu.cshtml";
+}
+
+<h2>Articulos por Cliente</h2>
+
+@ViewBag.Mensaje
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ArtCod)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ArtNom)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ArtTipo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ArtTam)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ArtPre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ArtFechVen)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ArtCatCod.CatNom)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (EC.Articulo item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ArtCod)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ArtNom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ArtTipo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ArtTam)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ArtPre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ArtFechVen)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ArtCatCod.CatNom)
+            </td>
+            <td></td>
+        </tr>
+    }
+
+</table>
+<p>
+    @Html.ActionLink("Volver al Listado","ListadoCompleto","Cliente")
+</p>

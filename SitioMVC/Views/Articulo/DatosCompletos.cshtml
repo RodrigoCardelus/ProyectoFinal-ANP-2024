@@ -1,0 +1,74 @@
+﻿@model EC.Articulo
+
+@{
+    Layout = "~/Views/Shared/_LayoutMenu.cshtml";
+}
+
+<h2>Datos Completos del Articulo</h2>
+
+@ViewBag.Mensaje
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ArtCod)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ArtCod)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ArtNom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ArtNom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ArtTipo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ArtTipo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ArtTam)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ArtTam)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ArtPre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ArtPre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ArtFechVen)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ArtFechVen)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ArtCatCod.CatNom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ArtCatCod.CatNom)
+        </dd>
+
+    </dl>
+</div>
+
+<p>
+    @Html.ActionLink("Volver al Listado", "ListadoInteractivoArticulos")
+</p>

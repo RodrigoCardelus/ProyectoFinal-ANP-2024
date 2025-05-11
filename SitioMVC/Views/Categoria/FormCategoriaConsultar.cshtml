@@ -1,0 +1,35 @@
+﻿@model EC.Categoria
+
+@{
+    Layout = "~/Views/Shared/_LayoutMenu.cshtml";
+}
+
+<h2>Consulta Categoria</h2>
+
+@ViewBag.Mensaje
+
+<div>
+    <h4>Categoria</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CatCod)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CatCod)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CatNom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CatNom)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Volver al Listado", "FormCategoriaListar")
+</p>

@@ -1,0 +1,51 @@
+﻿@model EC.Cliente
+
+@{
+    Layout = "~/Views/Shared/_LayoutMenu.cshtml";
+}
+
+<h2>Buscar Cliente</h2>
+
+@ViewBag.Mensaje
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CliCi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CliCi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CliNom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CliNom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CliNumTar)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CliNumTar)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CliTel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CliTel)
+        </dd>
+
+    </dl>
+</div>
+
+<p>
+    @Html.ActionLink("Volver al Listado", "FormClienteListar")
+</p>

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<EC.Cliente>
+
+@{
+    Layout = "~/Views/Shared/_LayoutMenu.cshtml";
+}
+
+<h2>Listado Interactivo de Clientes</h2>
+
+@ViewBag.Mensaje
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <div>
+            @Html.TextBox("nombre")
+            <input type="submit" value="Filtrar" class="btn btn-default" />
+        </div>
+    </div>
+}
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CliNom)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (EC.Cliente CliCi in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => CliCi.CliNom)
+            </td>
+            <td>
+                @Html.ActionLink("Ventas del Cliente", "VentasCli", "Venta", new { CliCi.CliCi }, null) |
+                @Html.ActionLink("Articulos del Cliente", "ArticulosCli", "Articulo", new { CliCi.CliCi }, null)
+            </td>
+        </tr>
+    }
+
+</table>

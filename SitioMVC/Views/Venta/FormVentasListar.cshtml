@@ -1,0 +1,82 @@
+﻿@model IEnumerable<EC.Venta>
+
+@{
+    Layout = "~/Views/Shared/_LayoutMenu.cshtml";
+}
+
+<h2>Seguimiento de Ventas</h2>
+
+@ViewBag.Mensaje
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <table>
+        <tr>
+
+            <td>Fecha: @Html.TextBox("FechVen", "", new { @type = "date" })</td>
+            <td>Estado: @Html.DropDownList("estado", (SelectList)ViewBag.Estado, "Seleccionar")</td>
+            <td><input type="submit" value="Filtrar" class="btn btn-default" /></td>
+            <td> @Html.ActionLink("Limpiar", "FormVentasListar")</td>
+
+        </tr>
+    </table>
+}
+
+
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.VenNum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VenFec)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VenCliCi.CliNom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VenMon)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VenDir)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ListaHisEst.LastOrDefault().VenEst.EstNom)
+            </th>
+
+            <th></th>
+        </tr>
+
+        @foreach (EC.Venta venta in Model)
+        {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => venta.VenNum)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => venta.VenFec)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => venta.VenCliCi.CliNom)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => venta.VenMon)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => venta.VenDir)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => venta.ListaHisEst.LastOrDefault().VenEst.EstNom)
+        </td>
+        <td>
+            @Html.ActionLink("Cambiar Estado", "CambiarEstado", "Venta", new { venta.VenNum }, null)
+
+        </td>
+    </tr>
+        }
+
+    </table>

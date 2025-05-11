@@ -1,0 +1,45 @@
+﻿@model EC.DetalleVenta
+
+<h2>Alta Linea de Factura</h2>
+
+@ViewBag.Mensaje
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+
+
+        <table class="table-bordered">
+
+            <tr>
+                <td>
+                    @Html.Label("Articulo", htmlAttributes: new { @class = "control-label col-md-2" })
+                </td>
+                <td>
+                    @Html.DropDownList("CodArt", (SelectList)ViewBag.ListaArticulos,"Seleccionar")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.DetVenCant,"Cantidad", htmlAttributes: new { @class = "control-label col-md-2" })
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.DetVenCant, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>
+                    
+                </td>
+                <td><input type="submit" value="Agregar Linea" class="btn btn-default" />
+                    @Html.ActionLink("Finalizar Venta", "AgregarVenta", null, new { @class = "btn btn-default" })
+                     </td> 
+</tr>
+        </table>
+    </div>}

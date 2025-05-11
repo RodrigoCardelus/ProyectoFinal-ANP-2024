@@ -1,0 +1,73 @@
+﻿@model EC.Articulo
+
+@{
+    ViewBag.Title = "FormEliminarArticulo";
+    Layout = "~/Views/Shared/_LayoutMenu.cshtml";
+}
+
+<h2>FormEliminarArticulo</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Articulo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ArtCod)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ArtCod)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ArtNom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ArtNom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ArtTipo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ArtTipo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ArtTam)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ArtTam)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ArtPre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ArtPre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ArtFechVen)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ArtFechVen)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
